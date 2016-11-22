@@ -1,11 +1,12 @@
 const https = require('https')
+const fs = require('fs')
 const { username, password } = require('./credentials')
 
+const bundle = fs.readFileSync('./bundle.js', 'utf8')
 const data = {
   branch: 'default',
   modules: {
-    main: 'require("hello");',
-    hello: 'console.log("Hello World!");',
+    main: bundle,
   },
 }
 
