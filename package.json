@@ -7,7 +7,7 @@
   "scripts": {
     "build": "webpack src/main.js bundle.js",
     "lint": "eslint . --ignore-path .gitignore",
-    "publish": "node publish.js"
+    "deploy": "node deploy.js"
   },
   "repository": {
     "type": "git",
