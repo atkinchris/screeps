@@ -5,7 +5,7 @@
   "private": true,
   "main": "src/main.js",
   "scripts": {
-    "build": "webpack src/main.js bundle.js",
+    "build": "webpack",
     "lint": "eslint . --ignore-path .gitignore",
     "deploy": "node deploy.js"
   },
