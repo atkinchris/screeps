@@ -1,4 +1,5 @@
-const pruneMemory = require('./utils/memory').prune
+const { prune } = require('./utils/memory')
+const countRoles = require('./utils/countRoles')
 
 const roles = {
   harvester: require('./roles/harvester'),
@@ -6,15 +7,10 @@ const roles = {
 }
 
 function loop() {
-  pruneMemory()
+  prune()
   const creeps = Object.keys(Game.creeps).map(name => Game.creeps[name])
-
-  const stats = creeps.reduce((out, creep) => {
-    const role = creep.memory.role
-    const count = out[role] ? out[role] + 1 : 1
-
-    return Object.assign({}, out, { [role]: count })
-  })
+  const stats = countRoles(creeps)
+  console.log(JSON.stringify(stats))
 
   if (stats.harvester < 1) {
     const harvester = Game.spawns.alpha.createCreep([WORK, CARRY, MOVE, MOVE], undefined, { role: 'harvester' })
