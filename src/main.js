@@ -6,7 +6,7 @@ const roles = {
   upgrader: require('./roles/upgrader'),
   builder: require('./roles/builder'),
 }
-const expectations = { harvester: 1, upgrader: 2 }
+const expectations = { harvester: 1, upgrader: 3 }
 
 function loop() {
   prune()
