@@ -21,7 +21,6 @@ function run(creep) {
   } else {
     // eslint-disable-next-line no-param-reassign
     creep.memory.role = 'builder'
-    console.log('Becoming a builder')
   }
 }
 
