@@ -5,22 +5,22 @@ const roles = {
   harvester: require('./roles/harvester'),
   upgrader: require('./roles/upgrader'),
 }
+const expectations = { harvester: 1, upgrader: 2 }
 
 function loop() {
   prune()
   const creeps = Object.keys(Game.creeps).map(name => Game.creeps[name])
   const stats = countRoles(creeps)
-  console.log(JSON.stringify(stats))
 
-  if (stats.harvester < 1) {
-    const harvester = Game.spawns.alpha.createCreep([WORK, CARRY, MOVE, MOVE], undefined, { role: 'harvester' })
-    console.log(`Spawning new harvester: ${harvester}`)
-  }
+  Memory.stats = stats
 
-  if (stats.upgrader < 2) {
-    const upgrader = Game.spawns.alpha.createCreep([WORK, CARRY, MOVE, MOVE], undefined, { role: 'upgrader' })
-    console.log(`Spawning new upgrader: ${upgrader}`)
-  }
+  Object.keys(stats).forEach((role) => {
+    const expected = expectations[role] || 0
+    if (stats[role] < expected) {
+      const creep = Game.spawns.alpha.createCreep([WORK, CARRY, MOVE, MOVE], undefined, { role })
+      console.log(`Spawning new ${role}: ${creep}`)
+    }
+  })
 
   creeps.forEach(creep => roles[creep.memory.role].run(creep))
 }
