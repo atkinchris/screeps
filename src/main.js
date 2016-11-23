@@ -22,7 +22,7 @@ function loop() {
   const upgraders = creeps.filter(creep => creep.memory.role === 'upgrader')
   console.log(`Harvesters: ${harvesters.length}`)
 
-  if (harvesters.length < 2) {
+  if (harvesters.length < 1) {
     const harvester = Game.spawns.alpha.createCreep([WORK, CARRY, MOVE], undefined, { role: 'harvester' })
     console.log(`Spawning new harvester: ${harvester}`)
   }
