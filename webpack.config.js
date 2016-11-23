@@ -6,6 +6,7 @@ module.exports = {
   },
   output: {
     filename: '[name].js',
+    libraryTarget: 'commonjs2',
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),

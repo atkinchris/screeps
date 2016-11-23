@@ -3,20 +3,21 @@ const roles = {
 }
 
 function pruneMemory() {
-  Memory.creeps = Memory.creeps.filter((name) => {
+  Memory.creeps = Object.keys(Memory.creeps).reduce((creeps, name) => {
     if (!Game.creeps[name]) {
       console.log('Clearing non-existing creep memory:', name)
-      return false
+      return creeps
     }
 
-    return true
-  })
+    return Object.assign({}, creeps, { [name]: Memory.creeps[name] })
+  }, {})
 }
 
 function loop() {
   pruneMemory()
+  const creeps = Object.keys(Game.creeps).map(name => Game.creeps[name])
 
-  const harvesters = Game.creeps.filter(creep => creep.memory.role === 'harvester')
+  const harvesters = creeps.filter(creep => creep.memory.role === 'harvester')
   console.log(`Harvesters: ${harvesters.length}`)
 
   if (harvesters.length < 2) {
@@ -24,10 +25,7 @@ function loop() {
     console.log(`Spawning new harvester: ${newName}`)
   }
 
-  Game.creeps.forEach((creep) => {
-    const role = creep.memory.role
-    roles[role].run(creep)
-  })
+  creeps.forEach(creep => roles[creep.memory.role].run(creep))
 }
 
-module.exports = loop
+module.exports.loop = loop
