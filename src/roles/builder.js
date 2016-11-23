@@ -5,21 +5,24 @@
       return
     }
 
-    const targets = creep.room.find(FIND_CONSTRUCTION_SITES)
+    const constructionSite = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES)
 
 
-    if (targets.length > 0) {
-      if (creep.build(targets[0]) === ERR_NOT_IN_RANGE) {
-        creep.moveTo(targets[0])
+    if (constructionSite) {
+      if (creep.build(constructionSite) === ERR_NOT_IN_RANGE) {
+        creep.moveTo(constructionSite)
       }
     } else {
-      const repairs = creep.room.find(FIND_STRUCTURES, {
+      const repairSite = creep.pos.findClosestByRange(FIND_STRUCTURES, {
         filter: structure => (structure.hits < 5000) && (structure.hits > 0),
       })
-      if (repairs.length > 0) {
-        if (creep.repair(repairs[0]) === ERR_NOT_IN_RANGE) {
-          creep.moveTo(repairs[0])
+      if (repairSite) {
+        if (creep.repair(repairSite) === ERR_NOT_IN_RANGE) {
+          creep.moveTo(repairSite)
         }
+      } else {
+        // eslint-disable-next-line no-param-reassign
+        creep.memory.role = 'harvester'
       }
     }
   }

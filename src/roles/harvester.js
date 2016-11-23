@@ -1,22 +1,22 @@
 function run(creep) {
   if (creep.carry.energy < creep.carryCapacity) {
-    const sources = creep.room.find(FIND_SOURCES)
-    if (creep.harvest(sources[0]) === ERR_NOT_IN_RANGE) {
-      creep.moveTo(sources[0])
+    const source = creep.pos.findClosestByRange(FIND_SOURCES)
+    if (creep.harvest(source) === ERR_NOT_IN_RANGE) {
+      creep.moveTo(source)
     }
     return
   }
 
-  const targets = creep.room.find(FIND_STRUCTURES, {
+  const storage = creep.pos.findClosestByRange(FIND_STRUCTURES, {
     filter: structure => (
       structure.structureType === STRUCTURE_EXTENSION ||
       structure.structureType === STRUCTURE_SPAWN
     ) && structure.energy < structure.energyCapacity,
   })
 
-  if (targets.length > 0) {
-    if (creep.transfer(targets[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-      creep.moveTo(targets[0])
+  if (storage) {
+    if (creep.transfer(storage, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+      creep.moveTo(storage)
     }
   } else {
     // eslint-disable-next-line no-param-reassign
