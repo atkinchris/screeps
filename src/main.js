@@ -23,12 +23,12 @@ function loop() {
   console.log(`Harvesters: ${harvesters.length}`)
 
   if (harvesters.length < 1) {
-    const harvester = Game.spawns.alpha.createCreep([WORK, CARRY, MOVE], undefined, { role: 'harvester' })
+    const harvester = Game.spawns.alpha.createCreep([WORK, CARRY, MOVE, MOVE], undefined, { role: 'harvester' })
     console.log(`Spawning new harvester: ${harvester}`)
   }
 
-  if (upgraders.length < 1) {
-    const upgrader = Game.spawns.alpha.createCreep([WORK, CARRY, MOVE], undefined, { role: 'upgrader' })
+  if (upgraders.length < 2) {
+    const upgrader = Game.spawns.alpha.createCreep([WORK, CARRY, MOVE, MOVE], undefined, { role: 'upgrader' })
     console.log(`Spawning new upgrader: ${upgrader}`)
   }
 
