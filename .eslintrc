@@ -13,6 +13,12 @@
     "Memory": false,
     "WORK": false,
     "CARRY": false,
-    "MOVE": false
+    "MOVE": false,
+    "FIND_SOURCES": false,
+    "ERR_NOT_IN_RANGE": false,
+    "FIND_STRUCTURES": false,
+    "STRUCTURE_EXTENSION": false,
+    "STRUCTURE_SPAWN": false,
+    "RESOURCE_ENERGY": false,
   }
 }
