@@ -4,6 +4,15 @@
   },
   "extends": "airbnb-base",
   "rules": {
-    "semi": ["error", "never"]
+    "semi": ["error", "never"],
+    "no-console": 0,
+    "global-require": 0,
+  },
+  "globals": {
+    "Game": false,
+    "Memory": false,
+    "WORK": false,
+    "CARRY": false,
+    "MOVE": false
   }
 }
