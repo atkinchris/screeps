@@ -19,7 +19,9 @@ function loop() {
     const expected = expectations[role] || 0
     if (stats[role] < expected) {
       const creep = Game.spawns.alpha.createCreep([WORK, CARRY, MOVE, MOVE], undefined, { role })
-      console.log(`Spawning new ${role}: ${creep}`)
+      if (creep > 0) {
+        console.log(`Spawning new ${role}: ${creep}`)
+      }
     }
   })
 
