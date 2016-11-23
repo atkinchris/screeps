@@ -4,6 +4,7 @@ const countRoles = require('./utils/countRoles')
 const roles = {
   harvester: require('./roles/harvester'),
   upgrader: require('./roles/upgrader'),
+  builder: require('./roles/builder'),
 }
 const expectations = { harvester: 1, upgrader: 2 }
 

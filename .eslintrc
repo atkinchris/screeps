@@ -6,7 +6,7 @@
   "rules": {
     "semi": ["error", "never"],
     "no-console": 0,
-    "global-require": 0,
+    "global-require": 0
   },
   "globals": {
     "Game": false,
@@ -20,5 +20,6 @@
     "STRUCTURE_EXTENSION": false,
     "STRUCTURE_SPAWN": false,
     "RESOURCE_ENERGY": false,
+    "FIND_CONSTRUCTION_SITES": false
   }
 }
