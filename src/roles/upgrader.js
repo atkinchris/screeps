@@ -1,13 +1,11 @@
-const { moveCached } = require('../utils/movement')
-
 function run(creep) {
-  if (creep.carry.energy === 0) {
+  if (creep.carry.energy < creep.carryCapacity) {
     const source = creep.pos.findClosestByRange(FIND_SOURCES)
     if (creep.harvest(source) === ERR_NOT_IN_RANGE) {
-      moveCached(creep, source)
+      creep.moveTo(source)
     }
   } else if (creep.upgradeController(creep.room.controller) === ERR_NOT_IN_RANGE) {
-    moveCached(creep, creep.room.controller)
+    creep.moveTo(creep.room.controller)
   }
 }
 

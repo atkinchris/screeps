@@ -1,17 +1,10 @@
-/* eslint-disable no-param-reassign */
-const { moveCached } = require('../utils/movement')
-
 function run(creep) {
-  if (creep.carry.energy === 0) {
-    creep.memory.role = 'harvester'
-    return
-  }
-
   const constructionSite = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES)
 
   if (constructionSite) {
-    if (creep.build(constructionSite) === ERR_NOT_IN_RANGE) {
-      moveCached(creep, constructionSite)
+    const buildResult = creep.build(constructionSite)
+    if (buildResult === ERR_NOT_IN_RANGE) {
+      creep.moveTo(constructionSite)
     }
   } else {
     const repairSite = creep.pos.findClosestByRange(FIND_STRUCTURES, {
@@ -22,11 +15,8 @@ function run(creep) {
     })
     if (repairSite) {
       if (creep.repair(repairSite) === ERR_NOT_IN_RANGE) {
-        creep.say(`Repair ${repairSite.structureType}`)
-        moveCached(creep, repairSite)
+        creep.moveTo(repairSite)
       }
-    } else {
-      creep.memory.role = 'harvester'
     }
   }
 }
