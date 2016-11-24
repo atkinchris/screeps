@@ -1,5 +1,5 @@
 function run(creep) {
-  if (creep.carry.energy < creep.carryCapacity) {
+  if (creep.carry.energy === 0) {
     const source = creep.pos.findClosestByRange(FIND_SOURCES)
     if (creep.harvest(source) === ERR_NOT_IN_RANGE) {
       creep.moveTo(source)
