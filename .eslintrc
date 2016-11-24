@@ -20,6 +20,7 @@
     "STRUCTURE_EXTENSION": false,
     "STRUCTURE_SPAWN": false,
     "RESOURCE_ENERGY": false,
-    "FIND_CONSTRUCTION_SITES": false
+    "FIND_CONSTRUCTION_SITES": false,
+    "LOOK_SOURCES": false
   }
 }
