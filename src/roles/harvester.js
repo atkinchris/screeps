@@ -19,4 +19,4 @@ function run(creep) {
   }
 }
 
-module.exports = { run }
+module.exports = { run, expectation: 1 }

@@ -20,6 +20,7 @@ function loop() {
   }, {})
 
   Memory.roleCounts = roleCounts
+  console.log(JSON.stringify(roleCounts))
 
   const spawn = spawns[0]
 
@@ -28,15 +29,13 @@ function loop() {
     return
   }
 
-  if (roleCounts.harvester < 1) {
-    spawn.createCreep([WORK, WORK, CARRY, MOVE], undefined, { role: 'harvester' })
-  }
-  if (roleCounts.upgrader < 3) {
-    spawn.createCreep([WORK, WORK, CARRY, MOVE], undefined, { role: 'upgrader' })
-  }
-  if (roleCounts.builder < 1) {
-    spawn.createCreep([WORK, WORK, CARRY, MOVE], undefined, { role: 'builder' })
-  }
+  Object.keys(roles).forEach((role) => {
+    const count = roleCounts[role] || 0
+    const expectation = roles[role].expectation
+    if (count < expectation) {
+      spawn.createCreep([WORK, WORK, CARRY, MOVE], undefined, { role })
+    }
+  })
 
   creeps.forEach(creep => roles[creep.memory.role].run(creep))
 }
