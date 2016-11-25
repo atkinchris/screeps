@@ -1,13 +1,13 @@
 {
   "env": {
-    "node": true
+    "node": true,
+    "jest": true,
   },
   "extends": "airbnb-base",
   "rules": {
     "semi": ["error", "never"],
     "no-console": 0,
-    "global-require": 0,
-    "no-param-reassign": 0
+    "global-require": 0
   },
   "globals": {
     "Game": false,
@@ -23,6 +23,7 @@
     "RESOURCE_ENERGY": false,
     "FIND_CONSTRUCTION_SITES": false,
     "LOOK_SOURCES": false,
+    "LOOK_TERRAIN": false,
     "OK": false
   }
 }
