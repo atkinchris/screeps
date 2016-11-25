@@ -1,24 +1,26 @@
-function run(creep) {
-  const constructionSite = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES)
-
-  if (constructionSite) {
-    const buildResult = creep.build(constructionSite)
-    if (buildResult === ERR_NOT_IN_RANGE) {
-      creep.moveTo(constructionSite)
+module.exports = {
+  run(creep) {
+    if (creep.memory.building && creep.carry.energy === 0) {
+      creep.memory.building = false
+      creep.say('harvesting')
     }
-  } else {
-    const repairSite = creep.pos.findClosestByRange(FIND_STRUCTURES, {
-      filter: structure =>
-        (structure.hits < 5000) &&
-        (structure.hits > 0) &&
-        (structure.hits < structure.hitsMax),
-    })
-    if (repairSite) {
-      if (creep.repair(repairSite) === ERR_NOT_IN_RANGE) {
-        creep.moveTo(repairSite)
+    if (!creep.memory.building && creep.carry.energy === creep.carryCapacity) {
+      creep.memory.building = true
+      creep.say('building')
+    }
+
+    if (creep.memory.building) {
+      const target = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES)
+      if (target.length) {
+        if (creep.build(target) === ERR_NOT_IN_RANGE) {
+          creep.moveTo(target)
+        }
+      }
+    } else {
+      const source = creep.pos.findClosestByRange(FIND_SOURCES)
+      if (creep.harvest(source) === ERR_NOT_IN_RANGE) {
+        creep.moveTo(source)
       }
     }
-  }
+  },
 }
-
-module.exports = { run }
