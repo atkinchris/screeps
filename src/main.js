@@ -11,6 +11,15 @@ function loop() {
 
   const creeps = Object.keys(Game.creeps).map(key => Game.creeps[key])
   const spawns = Object.keys(Game.spawns).map(key => Game.spawns[key])
+  const roleCounts = creeps.reduce((counts, creep) => {
+    const role = creep.memory.role
+    const existing = counts[role]
+    const count = existing ? existing + 1 : 1
+
+    return Object.assign({}, counts, { [role]: count })
+  }, {})
+
+  Memory.roleCounts = roleCounts
 
   const spawn = spawns[0]
 
@@ -19,15 +28,13 @@ function loop() {
     return
   }
 
-  if (creeps.filter(creep => creep.memory.role === 'harvester').length < 1) {
+  if (roleCounts.harvester < 1) {
     spawn.createCreep([WORK, WORK, CARRY, MOVE], undefined, { role: 'harvester' })
   }
-
-  if (creeps.filter(creep => creep.memory.role === 'upgrader').length < 3) {
+  if (roleCounts.upgrader < 3) {
     spawn.createCreep([WORK, WORK, CARRY, MOVE], undefined, { role: 'upgrader' })
   }
-
-  if (creeps.filter(creep => creep.memory.role === 'builder').length < 1) {
+  if (roleCounts.builder < 1) {
     spawn.createCreep([WORK, WORK, CARRY, MOVE], undefined, { role: 'builder' })
   }
 
