@@ -12,6 +12,7 @@
   "globals": {
     "Game": false,
     "Memory": false,
+    "StructureSpawn": false,
     "WORK": false,
     "CARRY": false,
     "MOVE": false,
@@ -27,6 +28,8 @@
     "OK": false,
     "STRUCTURE_CONTAINER": false,
     "LOOK_CONSTRUCTION_SITES": false,
-    "LOOK_STRUCTURES": false
+    "LOOK_STRUCTURES": false,
+    "ERR_NOT_ENOUGH_ENERGY": false,
+    "_": false,
   }
 }

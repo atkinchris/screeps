@@ -1,31 +1,37 @@
-/* eslint-disable no-param-reassign */
-function run(creep) {
-  const { refueling = false } = creep.memory
+module.exports = {
+    // a function to run the logic for this role
+  run(creep) {
+        // if creep is bringing energy to the controller but has no energy left
+    if (creep.memory.working === true && creep.carry.energy === 0) {
+            // switch state
+      creep.memory.working = false
+    }
+        // if creep is harvesting energy but is full
+    else if (creep.memory.working === false && creep.carry.energy === creep.carryCapacity) {
+            // switch state
+      creep.memory.working = true
+    }
 
-  if (!refueling && creep.carry.energy === 0) {
-    creep.memory.refueling = true
-    creep.memory.target = creep.pos.findClosestByRange(FIND_SOURCES).id
-  } else if (refueling && creep.carry.energy === creep.carryCapacity) {
-    creep.memory.refueling = false
-    creep.memory.target = creep.room.controller.id
-  }
+        // if creep is supposed to transfer energy to the controller
+    if (creep.memory.working === true) {
+            // instead of upgraderController we could also use:
+            // if (creep.transfer(creep.room.controller, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
 
-  const target = Game.getObjectById(creep.memory.target)
-
-  if (!target) {
-    console.log('I am lost,', creep.name, creep.memory.role)
-    return creep
-  }
-
-  if (!creep.memory.refueling && creep.pos.inRangeTo(target, 3)) {
-    creep.upgradeController(target)
-  } else if (creep.pos.inRangeTo(target, 1)) {
-    creep.harvest(target)
-  } else {
-    creep.moveTo(target)
-  }
-
-  return creep
+            // try to upgrade the controller
+      if (creep.upgradeController(creep.room.controller) === ERR_NOT_IN_RANGE) {
+                // if not in range, move towards the controller
+        creep.moveTo(creep.room.controller)
+      }
+    }
+        // if creep is supposed to harvest energy from source
+    else {
+            // find closest source
+      const source = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE)
+            // try to harvest energy, if the source is not in range
+      if (creep.harvest(source) === ERR_NOT_IN_RANGE) {
+                // move towards the source
+        creep.moveTo(source)
+      }
+    }
+  },
 }
-
-module.exports = { run }

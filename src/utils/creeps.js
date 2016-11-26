@@ -2,7 +2,7 @@ const roles = require('../roles')
 
 function run(creep) {
   const { memory } = creep
-  if (memory === undefined || !memory.target || !memory.role) {
+  if (memory === undefined/* || !memory.target || !memory.role */) {
     creep.suicide()
     console.log(`Killing ${creep.name}, as it has no purpose.`)
   }
