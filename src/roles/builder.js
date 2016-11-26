@@ -2,8 +2,7 @@ function run(creep) {
   if (creep.memory.building && creep.carry.energy === 0) {
     creep.memory.building = false
     creep.say('harvesting')
-  }
-  if (!creep.memory.building && creep.carry.energy === creep.carryCapacity) {
+  } else if (!creep.memory.building && creep.carry.energy === creep.carryCapacity) {
     creep.memory.building = true
     creep.say('building')
   }
@@ -23,4 +22,4 @@ function run(creep) {
   }
 }
 
-module.exports = { run, expectation: 1 }
+module.exports = { run }

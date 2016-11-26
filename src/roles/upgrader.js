@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 function run(creep) {
-  const { refueling = true } = creep.memory
+  const { refueling = false } = creep.memory
 
   if (!refueling && creep.carry.energy === 0) {
     creep.memory.refueling = true
