@@ -8,8 +8,12 @@ function populate(spawn) {
     return Object.assign({}, out, { [role]: count })
   }, {})
 
-  if (!counts.upgrader || counts.upgrader.length < 3) {
+  if (!counts.upgrader || counts.upgrader < 3) {
     spawn.createCreep([WORK, CARRY, MOVE, MOVE], undefined, { role: 'upgrader', target: room.controller.id })
+  }
+
+  if (!counts.builder || counts.builder < 1) {
+    spawn.createCreep([WORK, CARRY, MOVE, MOVE], undefined, { role: 'builder', target: room.controller.id })
   }
 }
 

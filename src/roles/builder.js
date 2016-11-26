@@ -9,10 +9,12 @@ function run(creep) {
 
   if (creep.memory.building) {
     const target = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES)
-    if (target.length) {
+    if (target) {
       if (creep.build(target) === ERR_NOT_IN_RANGE) {
         creep.moveTo(target)
       }
+    } else {
+      console.log('Nothing to build')
     }
   } else {
     const source = creep.pos.findClosestByRange(FIND_SOURCES)
