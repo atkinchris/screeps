@@ -1,12 +1,31 @@
+/* eslint-disable no-param-reassign */
 function run(creep) {
-  if (creep.carry.energy < creep.carryCapacity) {
-    const source = creep.pos.findClosestByRange(FIND_SOURCES)
-    if (creep.harvest(source) === ERR_NOT_IN_RANGE) {
-      creep.moveTo(source)
-    }
-  } else if (creep.upgradeController(creep.room.controller) === ERR_NOT_IN_RANGE) {
-    creep.moveTo(creep.room.controller)
+  const { refueling = true } = creep.memory
+
+  if (!refueling && creep.carry.energy === 0) {
+    creep.memory.refueling = true
+    creep.memory.target = creep.pos.findClosestByRange(FIND_SOURCES).id
+  } else if (refueling && creep.carry.energy === creep.carryCapacity) {
+    creep.memory.refueling = false
+    creep.memory.target = creep.room.controller.id
   }
+
+  const target = Game.getObjectById(creep.memory.target)
+
+  if (!target) {
+    console.log('I am lost,', creep.name, creep.memory.role)
+    return creep
+  }
+
+  if (!creep.memory.refueling && creep.pos.inRangeTo(target, 3)) {
+    creep.upgradeController(target)
+  } else if (creep.pos.inRangeTo(target, 1)) {
+    creep.harvest(target)
+  } else {
+    creep.moveTo(target)
+  }
+
+  return creep
 }
 
-module.exports = { run, expectation: 3 }
+module.exports = { run }

@@ -1,4 +1,4 @@
-function pruneCreeps(creeps, existing, log) {
+function pruneCreeps(creeps = {}, existing = {}, log = console.log) {
   return Object.keys(existing).reduce((out, name) => {
     if (!creeps[name]) {
       log('Clearing non-existing creep memory:', name)

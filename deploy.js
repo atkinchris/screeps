@@ -4,7 +4,7 @@ const { username, password } = require('./credentials')
 
 const bundle = fs.readFileSync('./bundle.js', 'utf8')
 const data = {
-  branch: 'default',
+  branch: 'simulation',
   modules: {
     main: bundle,
   },

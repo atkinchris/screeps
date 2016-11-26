@@ -9,13 +9,22 @@ function mapRooms(rooms, existing = {}) {
     const sources = room.find(FIND_SOURCES).map((source) => {
       const { pos, id } = source
       const { x, y } = pos
-      const terrain = room.lookForAtArea(LOOK_TERRAIN, y - 1, x - 1, y + 1, x + 1, true)
-      const spots = terrain.filter(t => t.terrain === 'plain').length
+      const adjacent = room.lookForAtArea(LOOK_TERRAIN, y - 1, x - 1, y + 1, x + 1, true)
+      const spots = adjacent.filter(({ terrain }) => terrain === 'plain' || terrain === 'swamp')
+
+      if (spots.length === 0) {
+        return console.log(`No viable points of ingress around source at ${x}, ${y}`)
+      }
+
       return { pos, spots, id }
-    })
+    }).filter(source => source)
+
+    if (sources.length === 0) {
+      return console.log(`No sources found in room ${name}.`)
+    }
 
     return { name, sources }
-  }).reduce((out, room) => Object.assign(out, { [room.name]: room }), {})
+  }).reduce((out, room) => room && Object.assign(out, { [room.name]: room }), {})
 }
 
 module.exports = mapRooms
