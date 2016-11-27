@@ -30,6 +30,8 @@
     "LOOK_CONSTRUCTION_SITES": false,
     "LOOK_STRUCTURES": false,
     "ERR_NOT_ENOUGH_ENERGY": false,
+    "STRUCTURE_WALL": false,
+    "FIND_SOURCES_ACTIVE": false,
     "_": false,
   }
 }
