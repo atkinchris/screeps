@@ -22,7 +22,7 @@ module.exports = {
         roleBuilder.run(creep)
       }
     } else {
-      const source = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE)
+      const source = creep.pos.findClosestByRange(FIND_SOURCES_ACTIVE)
       if (creep.harvest(source) === ERR_NOT_IN_RANGE) {
         creep.moveTo(source)
       }

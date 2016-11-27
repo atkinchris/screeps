@@ -26,7 +26,7 @@ module.exports = {
         // if creep is supposed to harvest energy from source
     else {
             // find closest source
-      const source = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE)
+      const source = creep.pos.findClosestByRange(FIND_SOURCES_ACTIVE)
             // try to harvest energy, if the source is not in range
       if (creep.harvest(source) === ERR_NOT_IN_RANGE) {
                 // move towards the source
