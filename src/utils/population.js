@@ -1,33 +1,28 @@
 function populate(spawn) {
-  // setup some minimum numbers for different roles
-  const minimumNumberOfHarvesters = 1
-  const minimumNumberOfUpgraders = 1
-  const minimumNumberOfBuilders = 1
-  const minimumNumberOfRepairers = 1
-  const minimumNumberOfWallRepairers = 1
+  const minimums = {
+    harvester: 1,
+    builder: 1,
+    repairer: 1,
+    wallRepairer: 1,
+  }
 
-  const numberOfHarvesters = _.sum(Game.creeps, c => c.memory.role === 'harvester')
-  const numberOfUpgraders = _.sum(Game.creeps, c => c.memory.role === 'upgrader')
-  const numberOfBuilders = _.sum(Game.creeps, c => c.memory.role === 'builder')
-  const numberOfRepairers = _.sum(Game.creeps, c => c.memory.role === 'repairer')
-  const numberOfWallRepairers = _.sum(Game.creeps, c => c.memory.role === 'wallRepairer')
-
+  const counts = _.countBy(Game.creeps, c => c.memory.role)
   const energy = spawn.room.energyCapacityAvailable
   let name
 
-  if (numberOfHarvesters < minimumNumberOfHarvesters) {
+  if (counts.harvester < minimums.harvester) {
     name = spawn.createCustomCreep(energy, 'harvester')
 
-    if (name === ERR_NOT_ENOUGH_ENERGY && numberOfHarvesters === 0) {
+    if (name === ERR_NOT_ENOUGH_ENERGY && counts.harvester === 0) {
       name = spawn.createCustomCreep(spawn.room.energyAvailable, 'harvester')
     }
-  } else if (numberOfUpgraders < minimumNumberOfUpgraders) {
+  } else if (counts.upgrader < minimums.upgrader) {
     name = spawn.createCustomCreep(energy, 'upgrader')
-  } else if (numberOfRepairers < minimumNumberOfRepairers) {
+  } else if (counts.repairer < minimums.repairer) {
     name = spawn.createCustomCreep(energy, 'repairer')
-  } else if (numberOfBuilders < minimumNumberOfBuilders) {
+  } else if (counts.builder < minimums.builder) {
     name = spawn.createCustomCreep(energy, 'builder')
-  } else if (numberOfWallRepairers < minimumNumberOfWallRepairers) {
+  } else if (counts.wallRepairer < minimums.wallRepairer) {
     name = spawn.createCustomCreep(energy, 'wallRepairer')
   } else {
     name = spawn.createCustomCreep(energy, 'builder')
