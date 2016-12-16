@@ -33,6 +33,8 @@
     "STRUCTURE_WALL": false,
     "FIND_SOURCES_ACTIVE": false,
     "STRUCTURE_TOWER": false,
+    "FIND_HOSTILE_CREEPS": false,
+    "FIND_MY_STRUCTURES": false,
     "_": false,
   }
 }
