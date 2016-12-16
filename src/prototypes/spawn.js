@@ -1,14 +1,10 @@
 function createCustomCreep(energy, roleName) {
-  const numberOfParts = Math.floor(energy / 200)
-  const body = []
-  for (let i = 0; i < numberOfParts; i++) {
-    body.push(WORK)
-  }
-  for (let i = 0; i < numberOfParts; i++) {
-    body.push(CARRY)
-  }
-  for (let i = 0; i < numberOfParts; i++) {
-    body.push(MOVE)
+  const level = Math.floor(energy / 250)
+  const template = [WORK, CARRY, MOVE, MOVE]
+  let body = []
+
+  for (let i = 0; i < level; i += 1) {
+    body = [...body, ...template]
   }
 
   return this.createCreep(body, undefined, { role: roleName, working: false })
