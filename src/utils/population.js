@@ -6,12 +6,12 @@ function populate(spawn) {
     wallRepairer: 1,
   }
 
-  const counts = Object.assign({}, _.countBy(Game.creeps, c => c.memory.role), {
+  const counts = Object.assign({
     harvester: 0,
     builder: 0,
     repairer: 0,
     wallRepairer: 0,
-  })
+  }, _.countBy(Game.creeps, c => c.memory.role))
 
   const energy = spawn.room.energyCapacityAvailable / 2
   let name
