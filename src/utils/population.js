@@ -6,8 +6,14 @@ function populate(spawn) {
     wallRepairer: 1,
   }
 
-  const counts = _.countBy(Game.creeps, c => c.memory.role)
-  const energy = spawn.room.energyCapacityAvailable
+  const counts = Object.assign({}, _.countBy(Game.creeps, c => c.memory.role), {
+    harvester: 0,
+    builder: 0,
+    repairer: 0,
+    wallRepairer: 0,
+  })
+
+  const energy = spawn.room.energyCapacityAvailable / 2
   let name
 
   if ((counts.harvester || 0) < minimums.harvester) {

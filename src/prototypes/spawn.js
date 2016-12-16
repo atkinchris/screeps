@@ -7,7 +7,15 @@ function createCustomCreep(energy, roleName) {
     body = [...body, ...template]
   }
 
-  return this.createCreep(body, undefined, { role: roleName, working: false })
+  const result = this.createCreep(body, undefined, { role: roleName, working: false })
+
+  // if (result === ERR_NOT_ENOUGH_ENERGY) {
+  //   console.log(`Failed to spawn ${roleName} with ${energy} energy (level ${level})`)
+  // } else {
+  //   console.log(`Attempting to spawn ${roleName} using ${energy} energy (level ${level})`)
+  // }
+
+  return result
 }
 
 module.exports = () => {
